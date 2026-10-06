@@ -12,6 +12,71 @@
             overflow: hidden;
         }
 
+        /* 🔒 Estilos de la pantalla de bloqueo */
+        #lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999999;
+            color: #FFD700;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #lock-screen h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        #lock-screen input {
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 25px;
+            border: 2px solid #FFD700;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-align: center;
+            outline: none;
+            margin-bottom: 15px;
+            width: 260px;
+        }
+
+        #lock-screen button {
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            border: none;
+            background: #FFD700;
+            color: #000;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+            transition: transform 0.2s;
+        }
+
+        #lock-screen button:hover {
+            transform: scale(1.05);
+        }
+
+        #error-msg {
+            color: #ff4d4d;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        /* Contenido oculto inicialmente */
+        #main-content {
+            display: none;
+        }
+
         .star-wars {
             position: relative;
             height: 100vh;
@@ -138,46 +203,82 @@
     </style>
 </head>
 <body>
-    <div class="star-wars">
-        <div class="title-container">
-            <div class="title">Hola ☺️</div>
-        </div>
-        <div class="crawl">
-            <p>¡NO RESPONDAS!</p>
-            <p>Quiero explicarte algo...</p>
-            <p>
-                La razón por la cual me aleje porque en cierta manera si era incómodo que me estuvieran castrando contigo porque siento que ya se le estaba pasando la mano sentía que podría haber algún detalle, lo bueno que ahora ya se calmaron, tal vez sea tonto para ti o no tenga importancia, pero lo que menos quiero es tener problemas o roces contigo... aunque aveces no parezca si me duele lo dura que llegas a ser, tienes un valor enorme para mi...
-            </p>
-            <p>
-                Quiero disculparme, aunque no lo creas te quiero mucho y te aprecio bastante, me has ayudado mucho así como yo lo haría el día que necesites algo...
-            </p>
-            <p>
-                Aunque igual no creas eres de las personas más importantes de mis amistades, tienes un valor enorme para mí, disculpa por todo, te quiero mucho❤️
-                Si necesitas algo estaré para ti
-            </p>
-            <p>
-                Te regalo el peluche de garfield, para que recuerdes que un amigo tuyo cree que eres muy buena persona, que puedes todo y que siempre sera leal a tu amistad, te mando un abrazo virtual🫂
-            </p>
-            <p>
-                PD: SE BORRARA ESTO. Confirmame cuando hayas terminado de leer por favor
-            </p>       
-        </div>
+
+    <!-- 🔒 Pantalla de Contraseña -->
+    <div id="lock-screen">
+        <h2>Introduce la contraseña</h2>
+        <input type="password" id="password-input" placeholder="Clave...">
+        <button onclick="checkPassword()">Entrar</button>
+        <div id="error-msg">Contraseña incorrecta</div>
     </div>
 
-    <!-- 🎧 Reproductor de Música -->
-    <div class="player">
-        <button id="play">▶️</button>
-        <div class="progress" id="progress">
-            <div class="progress-bar" id="progress-bar"></div>
+    <!-- Contenido Principal -->
+    <div id="main-content">
+        <div class="star-wars">
+            <div class="title-container">
+                <div class="title">Hola ☺️</div>
+            </div>
+            <div class="crawl">
+                <p>¡NO RESPONDAS!</p>
+                <p>Quiero explicarte algo...</p>
+                <p>
+                    La razón por la cual me aleje porque en cierta manera si era incómodo que me estuvieran castrando contigo porque siento que ya se le estaba pasando la mano sentía que podría haber algún detalle, lo bueno que ahora ya se calmaron, tal vez sea tonto para ti o no tenga importancia, pero lo que menos quiero es tener problemas o roces contigo... aunque aveces no parezca si me duele lo dura que llegas a ser, tienes un valor enorme para mi...
+                </p>
+                <p>
+                    Quiero disculparme, aunque no lo creas te quiero mucho y te aprecio bastante, me has ayudado mucho así como yo lo haría el día que necesites algo...
+                </p>
+                <p>
+                    Aunque igual no creas eres de las personas más importantes de mis amistades, tienes un valor enorme para mí, disculpa por todo, te quiero mucho❤️
+                    Si necesitas algo estaré para ti
+                </p>
+                <p>
+                    Te regalo el peluche de garfield, para que recuerdes que un amigo tuyo cree que eres muy buena persona, que puedes todo y que siempre sera leal a tu amistad, te mando un abrazo virtual🫂
+                </p>
+                <p>
+                    PD: SE BORRARA ESTO. Confirmame cuando hayas terminado de leer por favor
+                </p>       
+            </div>
         </div>
-        <div class="time" id="time">0:00 / 0:00</div>
-    </div>
 
-    <audio id="audio" loop>
-        <source src="https://www.dropbox.com/scl/fi/r2i0hd9h2orfe3x1irj5t/die-for-you-2.mp3?rlkey=q3i2185tlhwsnj61t27qcc5fj&st=9r4t5ywm&dl=1" type="audio/mpeg">
-    </audio>
+        <!-- 🎧 Reproductor de Música -->
+        <div class="player">
+            <button id="play">▶️</button>
+            <div class="progress" id="progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="time" id="time">0:00 / 0:00</div>
+        </div>
+
+        <audio id="audio" loop>
+            <source src="https://www.dropbox.com/scl/fi/r2i0hd9h2orfe3x1irj5t/die-for-you-2.mp3?rlkey=q3i2185tlhwsnj61t27qcc5fj&st=9r4t5ywm&dl=1" type="audio/mpeg">
+        </audio>
+    </div>
 
     <script>
+        // 🔑 CAMBIA AQUÍ LA CONTRASEÑA QUE QUIERAS
+        const PASSWORD_CORRECTA = "1234";
+
+        function checkPassword() {
+            const inputVal = document.getElementById('password-input').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            if (inputVal === PASSWORD_CORRECTA) {
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            } else {
+                errorMsg.style.display = 'block';
+                document.getElementById('password-input').value = '';
+            }
+        }
+
+        // Permitir enviar con la tecla Enter
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Código del reproductor y animación
         const audio = document.getElementById('audio');
         const playBtn = document.getElementById('play');
         const progress = document.getElementById('progress');
